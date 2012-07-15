@@ -1,4 +1,4 @@
-usc
+USC
 ===
 
- chinese usc community
+ Chinese USC Online Community
