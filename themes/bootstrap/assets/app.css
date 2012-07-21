@@ -1,0 +1,86 @@
+body {
+  padding-top: 60px;
+  background: url(bg.png);
+}
+h2 {
+  margin-bottom: 15px;
+}
+.dropdown-menu {
+  min-width: 100px;
+}
+.widget {
+  margin-bottom: 20px;
+}
+.widget.well {
+  padding: 10px;
+}
+.widget.well h4 {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+.widget.well ul {
+  list-style: none;
+  margin-left: 0;
+}
+.modal form {
+  margin: 0;
+}
+.notifications {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 15px;
+}
+.notifications li {
+  font-size: 16px;
+}
+.notifications .actions {
+  margin-left: 15px;
+}
+.notifications .actions a {
+  padding: 3px 7px;
+}
+#num-notification {
+  padding: 4px 8px;
+  background: #888;
+  color: #FFF;
+  font-size: 14px;
+  border-radius: 3px;
+}
+#num-notification.active {
+  font-weight: bold;
+  background: #BD3418;
+}
+#login-panel {
+  margin: 0 auto;
+  width: 230px;
+  padding: 20px;
+}
+#btn-pick {
+  width: 190px;
+  display: block;
+}
+.i-pick-btn {
+  width: 190px;
+  float: right;
+  display: block;
+}
+#pick-details {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+#pick-details th {
+  width: 100px;
+}
+#pickers li {
+  margin-bottom: 5px;
+}
+#pickers span.label {
+  float: right;
+  margin: 6px 0;
+}
+table.pickers td.picker {
+  width: 110px;
+}
+table.pickers td.actions {
+  width: 80px;
+}
