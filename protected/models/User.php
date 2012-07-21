@@ -19,11 +19,25 @@ class User extends CActiveRecord
 		);
 	}
 
+	public function avatar()
+	{
+		if($this->service == 'qq'){
+			return substr($this->avatar,0,-2).'100';
+		}elseif($this->service == 'renren'){
+			return str_replace('tiny_','main_',$this->avatar);
+		}
+	}
+
 	public function getTa()
 	{
 		if($this->gender=='男') return '他';
 		if($this->gender=='女') return '她';
 		return 'ta';
+	}
+
+	public function getLink()
+	{
+		echo CHtml::link(CHtml::image($this->avatar,$this->name,array('class'=>'avatar')).' '.$this->name,array('user/view','id'=>$this->id));
 	}
 	
 	public static function model($className=__CLASS__)
@@ -42,6 +56,7 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('openid, name, avatar','required'),
+			array('gender','safe'),
 			array('openid, name', 'length', 'max'=>64),
 			array('avatar', 'length', 'max'=>128),
 
@@ -61,7 +76,7 @@ class User extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'openid' => 'Openid',
-			'name' => 'Name',
+			'name' => '姓名',
 			'avatar' => 'Avatar',
 		);
 	}

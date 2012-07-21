@@ -30,11 +30,11 @@
 				<li class="divider-vertical"></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<img height="19" src="http://qzapp.qlogo.cn/qzapp/100288026/A046E9756D05EA2BA8F1961D000AB9E9/30" alt="头像">
-						13Installer <span class="caret"></span>
+						<img height="19" src="<?php echo User::current()->avatar ?>" alt="头像">
+						<?php echo User::current()->name ?> <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li class=""><a href="#">设置</a></li>
+						<li class=""><?php echo CHtml::link('设置',array('user/setting','id'=>User::current()->id)) ?></li>
 						<li class="divider"></li>
 						<li class=""><a href="/index.php/site/logout">登出</a></li>
 					</ul>

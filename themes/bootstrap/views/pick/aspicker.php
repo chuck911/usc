@@ -10,7 +10,7 @@
 </thead>
 <?php foreach ($dataProvider->getData() as $application): ?>
 	<tr>
-		<td><?php echo CHtml::link(CHtml::image($application->pick->user->avatar).' '.$application->pick->user->name,'#') ?></td>
+		<td><?php echo $application->pick->user->link ?></td>
 		<td><?php echo $application->confirmText ?></td>
 		<td>
 		<?php if ($application->confirm): ?>

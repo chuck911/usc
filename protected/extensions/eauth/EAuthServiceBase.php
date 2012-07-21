@@ -52,7 +52,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	/**
 	 * @var boolean whether is attributes was fetched.
 	 */
-	private $fetched = false;
+	protected $fetched = false;
 	
 	/**
 	 * @var EAuth the {@link EAuth} application component.

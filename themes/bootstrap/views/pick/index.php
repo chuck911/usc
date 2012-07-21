@@ -15,7 +15,7 @@
 	<tbody>
 		<?php foreach ($dataProvider->getData() as $pick): ?>
 		<tr>
-		<td><?php echo CHtml::image($pick->user->avatar).' '.CHtml::link($pick->user->name) ?></td>
+		<td><?php echo $pick->user->link ?></td>
 		<!--<td><?php echo $pick->company ?></td>
 		<td><?php echo $pick->flightNum ?></td> -->
 		<td><?php echo $pick->from ?></td>

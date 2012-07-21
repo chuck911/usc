@@ -13,7 +13,7 @@
 	<?php foreach ($pick->applications as $application): ?>
 	<tr>
 		<td>
-		<?php echo CHtml::link(CHtml::image($application->user->avatar).' '.$application->user->name,'#') ?>
+		<?php echo $application->user->link ?>
 		</td>
 		<td>
 		<?php echo CHtml::encode($application->message) ?>

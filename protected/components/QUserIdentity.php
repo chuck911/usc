@@ -1,14 +1,8 @@
 <?php
 
-/**
- * UserIdentity represents the data needed to identity a user.
- * It contains the authentication method that checks if the provided
- * data can identity the user.
- */
 class QUserIdentity extends EAuthUserIdentity
 {
-	public $avatar;
-	public $gender;
+	public $attributes = array();
 	
 	public function authenticate() {		
 		if ($this->service->isAuthenticated) {
@@ -19,8 +13,10 @@ class QUserIdentity extends EAuthUserIdentity
 			$this->setState('name', $this->name);
 			$this->setState('service', $this->service->serviceName);
 
-			$this->avatar = $this->service->getAttribute('avatar');
-			$this->gender = $this->service->getAttribute('gender');
+			foreach ($this->service->getAttributes() as $key => $value) {
+				if($key=='id' || $key=='name') continue;
+				$this->attributes[$key] = $value;
+			}
 			
 			$this->errorCode = self::ERROR_NONE;		
 		}

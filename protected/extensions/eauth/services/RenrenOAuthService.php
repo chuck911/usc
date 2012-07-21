@@ -13,10 +13,10 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
  * Facebook provider class.
  * @package application.extensions.eauth.services
  */
-class QQOAuthService extends EOAuth2Service 
+class RenrenOAuthService extends EOAuth2Service 
 {	
-	protected $name = 'qq';
-	protected $title = 'QQ';
+	protected $name = 'renren';
+	protected $title = 'Renren';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 585, 'height' => 290));
 
@@ -24,8 +24,8 @@ class QQOAuthService extends EOAuth2Service
 	protected $client_secret = '';
 	protected $scope = '';
 	protected $providerOptions = array(
-		'authorize' => 'https://graph.qq.com/oauth2.0/authorize',
-		'access_token' => 'https://graph.qq.com/oauth2.0/token',
+		'authorize' => 'https://graph.renren.com/oauth/authorize',
+		'access_token' => 'https://graph.renren.com/oauth/token',
 	);
 	
 	public function getUserInfo($openid) {
@@ -36,20 +36,6 @@ class QQOAuthService extends EOAuth2Service
 		);
 		$info = $this->makeSignedRequest('https://graph.qq.com/user/get_user_info',array('query'=>$params));
 		return $info;
-	}
-
-	
-	protected function fetchAttributes() {
-		$result = $this->makeSignedRequest('https://graph.qq.com/oauth2.0/me',array(),false);
-		
-		preg_match('/callback\(\s+(.*?)\s+\)/i', $result,$match);
-		$info = json_decode($match[1]);
-//var_dump($info);Yii::app()->end();
-		$userInfo = $this->getUserInfo($info->openid);
-		$this->attributes['id'] = $info->openid;
-		$this->attributes['name'] = $userInfo->nickname;
-		$this->attributes['avatar'] = $userInfo->figureurl;
-		$this->attributes['gender'] = $userInfo->gender;
 	}
 
 	protected function getCodeUrl($redirect_uri) {
@@ -67,7 +53,7 @@ class QQOAuthService extends EOAuth2Service
 		);
         
 		$response = $this->makeRequest($this->getTokenUrl($code), array('query' => $params), false);
-		parse_str($response, $result);
+		$result = json_decode($response,true);
 		return $result;
 	}
 			
@@ -79,6 +65,11 @@ class QQOAuthService extends EOAuth2Service
 		$this->setState('auth_token', $token['access_token']);
 		$this->setState('expires', isset($token['expires']) ? time() + (int)$token['expires'] - 60 : 0);
 		$this->access_token = $token['access_token'];
+		$this->fetched = true;
+		$this->attributes['id'] = $token['user']['id'];
+		$this->attributes['name'] = $token['user']['name'];
+		$this->attributes['avatar'] = $token['user']['avatar'][1]['url'];
+		// var_dump($this->attributes);Yii::app()->end();
 	}
 	
 	/**

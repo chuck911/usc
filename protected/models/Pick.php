@@ -59,6 +59,7 @@ class Pick extends CActiveRecord
 		return array(
 			'user'=>array(self::BELONGS_TO,'User','userID'),
 			'applications'=>array(self::HAS_MANY,'PickApplication','pickID'),
+			'applicationCount'=>array(self::STAT,'PickApplication','pickID'),
 		);
 	}
 

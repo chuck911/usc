@@ -101,10 +101,7 @@ class SiteController extends Controller
 
 	public function actionTest()
 	{
-		$session = Yii::app()->session;
-		$key = 'auth_token';
-		$key = '__eauth_qq__'.$key;
-		var_dump($_SESSION);
+		print_r(Yii::app()->user->getState('service'));
 	}
 
 	/**

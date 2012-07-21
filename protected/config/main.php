@@ -10,6 +10,7 @@ return array(
 	'name'=>'USC Community',
 	'theme'=>'bootstrap',
 	'language'=>'zh_CN',
+	'defaultController'=>'pick',
 
 	// preloading 'log' component
 	'preload'=>array('log','bootstrap'),
@@ -64,7 +65,12 @@ return array(
 					'class' => 'QQOAuthService',
 					'client_id' => '100288026',
 					'client_secret' => 'a2a5a76c80551bcd65ce8816c35932c8',
-				),	
+				),
+				'renren' => array(
+					'class' => 'RenrenOAuthService',
+					'client_id' => 'e29c5ee4ce004e0e8956cde4654a82f6',
+					'client_secret' => 'ee062f6a045e4f599c5951281e7c776b',
+				),
 			),
 		),
 		

@@ -57,13 +57,13 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 		
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
-            $code = $_GET['code'];
+			$code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {
 				$this->saveAccessToken($token);
 				$this->authenticated = true;
 			}
-        }
+		}
 		// Redirect to the authorization page
 		else if (!$this->restoreAccessToken()) {
 			// Use the URL of the current page as the callback URL.
