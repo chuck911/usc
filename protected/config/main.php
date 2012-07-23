@@ -9,7 +9,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'1step2US',
 	'theme'=>'bootstrap',
-	'language'=>'zh_CN',
+	'language'=>'zh_cn',
 	'defaultController'=>'pick',
 
 	// preloading 'log' component

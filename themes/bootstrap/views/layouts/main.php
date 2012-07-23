@@ -24,7 +24,13 @@
 			?>
 			<ul class="pull-right nav">
 				<?php if(!Yii::app()->user->isGuest): ?>
-				<li class=""><a href="<?php echo $this->createUrl('/notification') ?>" title="提醒">
+				<li id="mail-btn"><a href="<?php echo $this->createUrl('/message/inbox') ?>" title="邮件">
+					<span>
+					<?php if (Yii::app()->getModule('message')->getCountUnreadedMessages(Yii::app()->user->getId())): ?>
+					<?php echo Yii::app()->getModule('message')->getCountUnreadedMessages(Yii::app()->user->getId()); ?>
+					<?php endif; ?>	
+					</span></a></li>
+				<li><a href="<?php echo $this->createUrl('/notification') ?>" title="提醒">
 					<?php $this->widget('ext.notify.NotifyLabel') ?></a></li>
 				
 				<li class="divider-vertical"></li>

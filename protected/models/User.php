@@ -39,6 +39,18 @@ class User extends CActiveRecord
 	{
 		echo CHtml::link(CHtml::image($this->avatar,$this->name,array('class'=>'avatar')).' '.$this->name,array('user/view','id'=>$this->id));
 	}
+
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	public function getSuggest($q)
+	{
+		$c = new CDbCriteria();
+		$c->addSearchCondition('name', $q);
+		return $this->findAll($c);
+	}
 	
 	public static function model($className=__CLASS__)
 	{
