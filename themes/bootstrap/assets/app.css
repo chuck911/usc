@@ -53,6 +53,11 @@ table.table td {
   font-weight: bold;
   background: #BD3418;
 }
+a.brand {
+  background: url(logo.gif) no-repeat center center;
+  width: 100px;
+  text-indent: -9999px;
+}
 #login-panel {
   margin: 0 auto;
   width: 230px;
