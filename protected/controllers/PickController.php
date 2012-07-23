@@ -112,11 +112,11 @@ class PickController extends Controller
 					'pickerTa'=>$application->user->ta,
 					'pickID'=>$application->pick->id,
 				));
-				$this->redirect(array('view','id'=>$application->id));	
+				$this->redirect(array('view','id'=>$application->pickID));	
 			}
 		}
 		$pick = $this->loadModel($id); 
-		$this->render('apply',array('pick'=>$pick,'application'=>$id));
+		$this->render('apply',array('pick'=>$pick,'application'=>$application));
 	}
 
 	/**
