@@ -11,12 +11,12 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-			<a href="/index.php" class="brand">USC Community</a>
+			<a href="/index.php" class="brand"><?php echo CHtml::encode(Yii::app()->name); ?></a>
 			<?php
 			$this->widget('zii.widgets.CMenu', array(
 				'items'=>array(
-					array('label'=>'Home', 'url'=>array('/site/index')),
-					array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+					// array('label'=>'Home', 'url'=>array('/site/index')),
+					// array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 					array('label'=>'接机', 'url'=>array('/pick/index')),
 				),
 				'htmlOptions'=>array('class'=>'nav'),

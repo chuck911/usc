@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'USC Community',
+	'name'=>'1step2US',
 	'theme'=>'bootstrap',
 	'language'=>'zh_CN',
 	'defaultController'=>'pick',
