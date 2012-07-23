@@ -116,7 +116,7 @@ class PickController extends Controller
 			}
 		}
 		$pick = $this->loadModel($id); 
-		$this->render('apply',array('pick'=>$pick,'application'=>$application));
+		$this->render('apply',array('pick'=>$pick,'application'=>$id));
 	}
 
 	/**
