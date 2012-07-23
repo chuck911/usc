@@ -31,6 +31,13 @@ return array(
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
+		'message' => array(
+			'userModel' => 'User',
+			'getNameMethod' => 'getName',
+			'getSuggestMethod' => 'getSuggest',
+			'layout'=>'//layouts/message',
+			'viewPath'=>'//message',
+		),
 	),
 
 	// application components
@@ -43,6 +50,7 @@ return array(
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -63,8 +71,8 @@ return array(
 			'services'=>array(
 				'qq' => array(
 					'class' => 'QQOAuthService',
-					'client_id' => '100288026',
-					'client_secret' => 'a2a5a76c80551bcd65ce8816c35932c8',
+					'client_id' => '100290298',
+					'client_secret' => '357973f34c5b1d8490921b00868ff6fa',
 				),
 				'renren' => array(
 					'class' => 'RenrenOAuthService',
