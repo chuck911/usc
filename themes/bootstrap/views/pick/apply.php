@@ -3,6 +3,7 @@
 </div>
 
 <?php $this->renderPartial('_view',array('pick'=>$pick)) ?>
+<?php if ($applied): ?>
 <p class="help-block">【留几句话，表明你的诚意吧】</p>
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'id'=>'pick-application-form',
@@ -18,5 +19,8 @@
 			'label'=>'发送请求',
 		)); ?>
 	</div>
+<?php $this->endWidget(); ?>	
+<?php else: ?>
+<div class="alert"><h3>你已经提交过了接机请求</h3></div>	
+<?php endif ?>
 
-<?php $this->endWidget(); ?>

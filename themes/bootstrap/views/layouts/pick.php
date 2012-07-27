@@ -7,8 +7,9 @@ $this->widget('zii.widgets.CMenu',array(
 	'items'=>array(
 		array('label'=>'接机信息', 'url'=>array('pick/index')),
 		array('label'=>'求接机', 'url'=>array('pick/create')),
-		array('label'=>'谁来接我','url'=>array('pick/mine')),
-		array('label'=>'我要接谁','url'=>array('pick/aspicker')),
+		array('label'=>'谁来接我','url'=>array('pick/mine'),'visible'=>!Yii::app()->user->isGuest),
+		array('label'=>'我要接谁','url'=>array('pick/aspicker'),'visible'=>!Yii::app()->user->isGuest),
+		array('label'=>'接机管理','url'=>array('pick/admin'),'visible'=>Yii::app()->user->checkAccess('Pick.Admin')),
 	),
 	'htmlOptions'=>array(
 		'class'=>'nav nav-tabs nav-stacked'

@@ -1,6 +1,6 @@
 <?php
 
-class QWebUser extends CWebUser
+class QWebUser extends RWebUser
 {
 	public function login($identity,$duration=0)
 	{

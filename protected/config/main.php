@@ -21,6 +21,8 @@ return array(
 		'application.components.*',
 		'ext.eauth.*',
 		'ext.eauth.services.*',
+		'application.modules.rights.*',
+		'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -37,6 +39,11 @@ return array(
 			'getSuggestMethod' => 'getSuggest',
 			'layout'=>'//layouts/message',
 			'viewPath'=>'//message',
+		),
+		'rights'=>array(
+			'userNameColumn'=>'name',
+			'appLayout' => '//layouts/main',
+			//'install'=>true,	// Enables the installer.
 		),
 	),
 
@@ -56,6 +63,12 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
+		),
+		
+		'authManager'=>array(
+			'class'=>'RDbAuthManager',	// Provides support authorization item sorting.
+			'defaultRoles'=>array('Authenticated'),
+			'showErrors'=>true,
 		),
 		
 		'db'=>require('db.php'),

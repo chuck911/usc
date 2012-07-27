@@ -1,6 +1,6 @@
 <?php
 
-class PickController extends Controller
+class PickController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,31 +14,31 @@ class PickController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
+	public function allowedActions()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','apply','aspicker','mine','confirm'),
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return 'index,view';
 	}
+
+	// public function accessRules()
+	// {
+	// 	return array(
+	// 		array('allow',  // allow all users to perform 'index' and 'view' actions
+	// 			'actions'=>array('index','view'),
+	// 			'users'=>array('*'),
+	// 		),
+	// 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
+	// 			'actions'=>array('create','update','admin','delete','apply','aspicker','mine','confirm'),
+	// 			'users'=>array('@'),
+	// 		),
+	// 		array('deny',  // deny all users
+	// 			'users'=>array('*'),
+	// 		),
+	// 	);
+	// }
 
 	/**
 	 * Displays a particular model.
@@ -98,9 +98,14 @@ class PickController extends Controller
 
 	public function actionApply($id)
 	{
+		$pick = $this->loadModel($id);
+		$applied = PickApplication::model()->exists(
+			'userID=:userID AND pickID=:pickID',
+			array(':userID'=>Yii::app()->user->id,':pickID'=>$pick->id)
+		);
 		$application = new PickApplication;
 		$application->pickID = $id;
-		if(isset($_POST['PickApplication']))
+		if(isset($_POST['PickApplication']) && !$applied)
 		{
 			$application->userID = Yii::app()->user->id;
 			$application->attributes = $_POST['PickApplication'];
@@ -115,8 +120,7 @@ class PickController extends Controller
 				$this->redirect(array('view','id'=>$application->pickID));	
 			}
 		}
-		$pick = $this->loadModel($id); 
-		$this->render('apply',array('pick'=>$pick,'application'=>$application));
+		$this->render('apply',array('pick'=>$pick,'application'=>$application,'applied'=>$applied));
 	}
 
 	/**
@@ -166,7 +170,7 @@ class PickController extends Controller
 	{
 		$id = Yii::app()->request->getParam('application_id');
 		$application = PickApplication::model()->findByPk($id);
-		if($application){
+		if($application && $application->pick->userID == Yii::app()->user->id ){
 			$application->confirmText = Yii::app()->request->getParam('pick_confirm');
 			$application->confirm = 1;
 			if($application->save()){
@@ -194,6 +198,21 @@ class PickController extends Controller
 		$this->render('aspicker',array('dataProvider'=>$dataProvider));
 	}
 
+	public function actionAssign($id)
+	{
+		$pick = $this->loadModel($id);
+		if(isset($_POST['assigned'])){
+			$application = new PickApplication;
+			$application->pickID = $id;
+			$application->userID = $_POST['assigned'];
+			$application->message = '管理员指派';
+			$application->confirm = 2;
+			if($application->save()){
+				$this->redirect(array('view','id'=>$application->pickID));
+			}
+		}
+	}
+
 	/**
 	 * Manages all models.
 	 */
@@ -209,11 +228,6 @@ class PickController extends Controller
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
 	public function loadModel($id)
 	{
 		$model=Pick::model()->findByPk($id);
@@ -222,10 +236,6 @@ class PickController extends Controller
 		return $model;
 	}
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
 	protected function performAjaxValidation($model)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='pick-form')

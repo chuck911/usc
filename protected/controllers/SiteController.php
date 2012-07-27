@@ -101,7 +101,7 @@ class SiteController extends Controller
 
 	public function actionTest()
 	{
-		print_r(Yii::app()->user->getState('service'));
+		print_r(Yii::app()->authManager->defaultRoles);
 	}
 
 	/**

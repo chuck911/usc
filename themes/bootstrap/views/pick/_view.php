@@ -1,8 +1,8 @@
 <table class="detail-view table table-striped table-condensed" id="pick-details">
 	<tbody>
 		<tr class="odd">
-			<th><?php echo CHtml::image($pick->user->avatar); ?></th>
-			<td><?php echo CHtml::link($pick->user->name) ?></td>
+			<th><?php echo CHtml::link(CHtml::image($pick->user->avatar,$pick->user->name,array('class'=>'avatar')),array('user/view','id'=>$pick->user->id)); ?></th>
+			<td><?php echo CHtml::link($pick->user->name,array('user/view','id'=>$pick->user->id)); ?></td>
 		</tr>
 		<tr class="even"><th>航空公司</th><td><?php echo $pick->company ?></td></tr>
 		<tr class="even"><th>航班号</th><td><?php echo $pick->flightNum ?></td></tr>

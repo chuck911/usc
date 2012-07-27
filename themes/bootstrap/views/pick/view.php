@@ -17,22 +17,54 @@
 	</div>
 	<div class="span3">
 		<div class="well widget" id="pickers">
-		<h4>打算接ta的人：</h4>
-		<ul>
-			<?php foreach ($pick->applications as $application): ?>
-			<li>
-				<a href="#">
-					<?php echo CHtml::image($application->user->avatar,$application->user->name) ?>
-					<?php echo $application->user->name ?>
-				</a>
-				<?php if ($application->confirm): ?>
-					<span class="label label-warning">已确认</span>	
-				<?php else: ?>
-					<span class="label">未确认</span>	
-				<?php endif ?>
-			</li>		
-			<?php endforeach ?>
-		</ul>
-		<div>
+			<h4>打算接ta的人：</h4>
+			<?php if (!count($pick->applications)): ?>
+				暂无
+			<?php endif ?>
+			<ul>
+				<?php foreach ($pick->applications as $application): ?>
+					<li>
+						<?php echo $application->user->link ?>
+						<?php if ($application->confirm==1): ?>
+							<span class="label label-warning">已确认</span>
+						<?php elseif($application->confirm==2): ?>
+							<span class="label label-info">管理员指派</span>
+						<?php else: ?>
+							<span class="label">未确认</span>	
+						<?php endif ?>
+					</li>		
+				<?php endforeach ?>
+			</ul>
+		</div>
+<?php if (Yii::app()->user->checkAccess('Pick.Assign')): ?>
+		<form id="pickers" action="<?php echo $this->createUrl('pick/assign',array('id'=>$pick->id)) ?>" method="POST">
+			<h4>管理员安排：</h4>
+			<input type="hidden" id="assigned" name="assigned"/>
+			<?php 
+			$this->widget('ext.select2.ESelect2',array(
+				// 'name'=>'assigned',
+				'selector'=>'#assigned',
+				'options'=>array(
+					'placeholder'=>'输入名称',
+					'minimumInputLength'=>1,
+					'ajax'=>array(
+						'url'=>$this->createUrl('/message/suggest/user'),
+						'dataType'=>'jsonp',
+						'data'=>'js:function(term,page){
+							return { name_startsWith: term };
+						}',
+						'results'=>'js:function(data,page){
+							return {results: data.users};
+						}',
+					),
+					'formatResult'=>'js:function(data){return data.name;}',
+					'formatSelection'=>'js:function(data){return data.name;}'
+				)
+			)); 
+			?>
+			<button class="btn btn-info" style="margin-top:10px;">指派此同学</button>
+		</form>
+	
+<?php endif ?>
 	</div>
 </div>
