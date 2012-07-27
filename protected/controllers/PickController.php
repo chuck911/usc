@@ -46,6 +46,7 @@ class PickController extends RController
 	 */
 	public function actionView($id)
 	{
+		$this->pageTitle = '接机信息 #'.$id;
 		$this->render('view',array(
 			'pick'=>$this->loadModel($id),
 		));
@@ -57,6 +58,7 @@ class PickController extends RController
 	 */
 	public function actionCreate()
 	{
+		$this->pageTitle = '求接机';
 		$model=new Pick;
 		// $this->performAjaxValidation($model);
 		if(isset($_POST['Pick']))
@@ -79,6 +81,7 @@ class PickController extends RController
 	 */
 	public function actionUpdate($id)
 	{
+		$this->pageTitle = '更新接机信息';
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -98,6 +101,7 @@ class PickController extends RController
 
 	public function actionApply($id)
 	{
+		$this->pageTitle = '确认请求接机';
 		$pick = $this->loadModel($id);
 		$applied = PickApplication::model()->exists(
 			'userID=:userID AND pickID=:pickID',
@@ -148,6 +152,7 @@ class PickController extends RController
 	 */
 	public function actionIndex()
 	{
+		$this->pageTitle = '接机';
 		$dataProvider=new CActiveDataProvider('Pick');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -156,6 +161,7 @@ class PickController extends RController
 
 	public function actionMine()
 	{
+		$this->pageTitle = '谁来接我';
 		$criteria = new CDbCriteria(array(
 			'condition'=>'t.userID=:userID',
 			'params'=>array(':userID'=>Yii::app()->user->id),
@@ -168,6 +174,7 @@ class PickController extends RController
 
 	public function actionConfirm()
 	{
+		$this->pageTitle = '确认接机';
 		$id = Yii::app()->request->getParam('application_id');
 		$application = PickApplication::model()->findByPk($id);
 		if($application && $application->pick->userID == Yii::app()->user->id ){
@@ -188,6 +195,7 @@ class PickController extends RController
 
 	public function actionAspicker()
 	{
+		$this->pageTitle = '我要接谁';
 		$criteria = new CDbCriteria(array(
 			'condition'=>'t.userID=:userID',
 			'params'=>array(':userID'=>Yii::app()->user->id),
@@ -218,6 +226,7 @@ class PickController extends RController
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle = '接机管理';
 		$model=new Pick('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Pick']))

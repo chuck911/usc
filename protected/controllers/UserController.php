@@ -28,6 +28,7 @@ class UserController extends RController
 	public function actionView($id)
 	{
 		$this->user = $this->loadModel($id);
+		$this->pageTitle = $this->user->name;
 		$this->layout = '//layouts/user';
 		$this->render('view',array(
 			'user'=>$this->user,
