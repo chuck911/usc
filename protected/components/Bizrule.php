@@ -9,4 +9,9 @@ class Bizrule {
 			return true;
 		return false;
 	}
+	
+	public static function EditOwn()
+	{
+		return Yii::app()->user->id == Yii::app()->request->getParam('id');
+	}
 }
