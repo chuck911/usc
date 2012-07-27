@@ -19,6 +19,7 @@
 					// array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 					array('label'=>'接机', 'url'=>array('/pick/index')),
 					array('label'=>'权限管理','url'=>array('/rights'),'visible'=>Yii::app()->user->checkAccess('Admin')),
+					array('label'=>'用户管理','url'=>array('/user/admin'),'visible'=>Yii::app()->user->checkAccess('Admin')),
 				),
 				'htmlOptions'=>array('class'=>'nav'),
 			));
