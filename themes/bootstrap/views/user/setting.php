@@ -12,11 +12,17 @@
 	<label>性别</label>
 	<?php echo $form->dropDownList($model,'gender',array('男'=>'男','女'=>'女','-'=>'保密')); ?>
 
+	<div>
+	<label>家乡</label>
+	<?php echo $form->textField($model,'homeProvince',array('class'=>'span1')); ?> 省
+	<?php echo $form->textField($model,'homeCity',array('class'=>'span1')); ?>
+	</div>
+
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+			'label'=>$model->isNewRecord ? '新建' : '保存',
 		)); ?>
 	</div>
 

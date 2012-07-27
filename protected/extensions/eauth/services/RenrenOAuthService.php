@@ -62,8 +62,8 @@ class RenrenOAuthService extends EOAuth2Service
 	 * @param array $token access token array.
 	 */
 	protected function saveAccessToken($token) {
-		$this->setState('auth_token', $token['access_token']);
-		$this->setState('expires', isset($token['expires']) ? time() + (int)$token['expires'] - 60 : 0);
+		//$this->setState('auth_token', $token['access_token']);
+		//$this->setState('expires', isset($token['expires']) ? time() + (int)$token['expires'] - 60 : 0);
 		$this->access_token = $token['access_token'];
 		$this->fetched = true;
 		$this->attributes['id'] = $token['user']['id'];

@@ -43,6 +43,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li class=""><?php echo CHtml::link('设置',array('user/setting','id'=>User::current()->id)) ?></li>
+						<li class=""><?php echo CHtml::link('我的主页',array('user/view','id'=>User::current()->id)) ?></li>
 						<li class="divider"></li>
 						<li class=""><a href="/index.php/site/logout">登出</a></li>
 					</ul>

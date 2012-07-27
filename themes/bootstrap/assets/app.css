@@ -113,3 +113,6 @@ table#view-message td {
   border-radius: 2px;
   background: #aaaaaa url(mail.gif) no-repeat center center;
 }
+#user-details {
+  margin-top: 15px;
+}

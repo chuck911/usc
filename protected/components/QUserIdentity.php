@@ -17,6 +17,7 @@ class QUserIdentity extends EAuthUserIdentity
 				if($key=='id' || $key=='name') continue;
 				$this->attributes[$key] = $value;
 			}
+			$this->attributes['accessToken'] = $this->service->access_token;
 			
 			$this->errorCode = self::ERROR_NONE;		
 		}

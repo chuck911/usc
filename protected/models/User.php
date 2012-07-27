@@ -24,7 +24,7 @@ class User extends CActiveRecord
 		if($this->service == 'qq'){
 			return substr($this->avatar,0,-2).'100';
 		}elseif($this->service == 'renren'){
-			return str_replace('tiny_','main_',$this->avatar);
+			return $this->largeAvatar;
 		}
 	}
 
@@ -68,7 +68,7 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('openid, name, avatar','required'),
-			array('gender','safe'),
+			array('gender,homeProvince,homeCity','safe'),
 			array('openid, name', 'length', 'max'=>64),
 			array('avatar', 'length', 'max'=>128),
 

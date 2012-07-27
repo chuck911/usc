@@ -41,7 +41,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	/**
 	 * @var string current OAuth2 access token.
 	 */
-	protected $access_token = '';
+	public $access_token = '';
 	
 		
 	/**
