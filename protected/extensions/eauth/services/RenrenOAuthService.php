@@ -49,7 +49,7 @@ class RenrenOAuthService extends EOAuth2Service
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
 			'code' => $code,
-			'redirect_uri' => $this->getState('redirect_uri'),
+			// 'redirect_uri' => $this->getState('redirect_uri'),
 		);
         
 		$response = $this->makeRequest($this->getTokenUrl($code), array('query' => $params), false);
