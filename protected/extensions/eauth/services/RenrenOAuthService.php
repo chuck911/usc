@@ -27,6 +27,41 @@ class RenrenOAuthService extends EOAuth2Service
 		'authorize' => 'https://graph.renren.com/oauth/authorize',
 		'access_token' => 'https://graph.renren.com/oauth/token',
 	);
+
+	public function authenticate() {
+		// user denied error
+		if (isset($_GET['error']) && $_GET['error'] == 'access_denied') {
+			$this->cancel();
+			return false;
+		}
+		
+		// Get the access_token and save them to the session.
+		if (isset($_GET['code'])) {
+			$code = $_GET['code'];
+			$token = $this->getAccessToken($code);
+			if (isset($token)) {
+				$this->saveAccessToken($token);
+				$this->authenticated = true;
+			}
+		}
+		// Redirect to the authorization page
+		else if (!$this->restoreAccessToken()) {
+			// Use the URL of the current page as the callback URL.
+			if (isset($_GET['redirect_uri'])) {
+				$redirect_uri = $_GET['redirect_uri'];
+			}
+			else {
+				$server = Yii::app()->request->getHostInfo();
+				$path = Yii::app()->request->getUrl();
+				$redirect_uri = $server.$path;
+			}
+			$url = $this->getCodeUrl($redirect_uri);
+			$this->setState('redirect_uri', $redirect_uri);
+			Yii::app()->request->redirect($url);
+		}
+		
+		return $this->getIsAuthenticated();
+	}
 	
 	public function getUserInfo($openid) {
 		$params = array(
@@ -38,10 +73,10 @@ class RenrenOAuthService extends EOAuth2Service
 		return $info;
 	}
 
-	protected function getCodeUrl($redirect_uri) {
-		$this->setState('redirect_uri', $redirect_uri);
-		return parent::getCodeUrl($redirect_uri);
-	}
+	// protected function getCodeUrl($redirect_uri) {
+	// 	$this->setState('redirect_uri', $redirect_uri);
+	// 	return parent::getCodeUrl($redirect_uri);
+	// }
 	
 	protected function getAccessToken($code) {
 		$params = array(
@@ -49,7 +84,7 @@ class RenrenOAuthService extends EOAuth2Service
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
 			'code' => $code,
-			// 'redirect_uri' => $this->getState('redirect_uri'),
+			'redirect_uri' => $this->getState('redirect_uri'),
 		);
         
 		$response = $this->makeRequest($this->getTokenUrl($code), array('query' => $params), false);
