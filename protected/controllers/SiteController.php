@@ -72,22 +72,22 @@ class SiteController extends Controller
 	public function actionLogin()
 	{
 		$service = Yii::app()->request->getQuery('service');
-			if (isset($service)) {
-				$authIdentity = Yii::app()->eauth->getIdentity($service);
-				$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
-				$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
+		if (isset($service)) {
+			$authIdentity = Yii::app()->eauth->getIdentity($service);
+			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
 
-				if ($authIdentity->authenticate()) {
-					$identity = new QUserIdentity($authIdentity);
+			if ($authIdentity->authenticate()) {
+				$identity = new QUserIdentity($authIdentity);
 
-					// successful authentication
-					if ($identity->authenticate()) {
-						Yii::app()->user->login($identity);
-						// special redirect with closing popup window
-						$authIdentity->redirect();
-					}
-					else {
-						// close popup window and redirect to cancelUrl
+				// successful authentication
+				if ($identity->authenticate()) {
+					Yii::app()->user->login($identity);
+					// special redirect with closing popup window
+					$authIdentity->redirect();
+				}
+				else {
+					// close popup window and redirect to cancelUrl
 					$authIdentity->cancel();
 				}
 			}

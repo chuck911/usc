@@ -3,7 +3,7 @@
 </div>
 
 <?php $this->renderPartial('_view',array('pick'=>$pick)) ?>
-<?php if ($applied): ?>
+<?php if (!$applied): ?>
 <p class="help-block">【留几句话，表明你的诚意吧】</p>
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'id'=>'pick-application-form',

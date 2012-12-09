@@ -13,7 +13,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($dataProvider->getData() as $pick): ?>
+	<?php foreach ($dataProvider->getData() as $pick): ?>
 		<tr>
 		<td><?php echo $pick->user->link ?></td>
 		<!--<td><?php echo $pick->company ?></td>
@@ -31,7 +31,7 @@
 				echo CHtml::link('我来接',array('pick/apply','id'=>$pick->id),array('class'=>'btn btn-success')); ?></td>
 		<td><?php echo CHtml::link('查看详细',array('pick/view','id'=>$pick->id),array('class'=>'btn')) ?></td>
 		</tr>
-		<?php endforeach ?>
+	<?php endforeach ?>
 
 	</tbody>
 </table>
